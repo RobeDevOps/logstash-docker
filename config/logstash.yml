@@ -10,12 +10,18 @@ input {
 }
 
 filter{
+    grok {
+        match => { "message" => "%{COMBINEDAPACHELOG}" }
+    }
+    date {
+        match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+    }
 }
 
 output {
-    # elasticsearch {
-    #     hosts => [ "${ES_HOST}" ],
-    #     index => "dso_sq_%{+YYYY.MM.dd}"
-    # }
+    elasticsearch {
+        hosts => [ "${ES_HOST}" ],
+        index => "dso_sq_%{+YYYY.MM.dd}"
+    }
     stdout { codec => rubydebug }
 }
