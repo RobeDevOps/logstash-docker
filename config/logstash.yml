@@ -1,7 +1,7 @@
 input {
     file {
 	codec => json
-        path => "${SONAR_LOGS_PATH}"
+        path => "/sonar-logs/*.log"
         start_position => "beginning"
         sincedb_path => "/dev/null"
         tags => ["SQ", "SonarQube"]
@@ -13,8 +13,9 @@ filter{
 }
 
 output {
-    elasticsearch {
-        hosts => [ "${ES_HOST}" ],
-        index => "dso_sq_%{+YYYY.MM.dd}"
-    }
+    # elasticsearch {
+    #     hosts => [ "${ES_HOST}" ],
+    #     index => "dso_sq_%{+YYYY.MM.dd}"
+    # }
+    stdout { codec => rubydebug }
 }
