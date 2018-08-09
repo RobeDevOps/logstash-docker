@@ -20,7 +20,7 @@ filter{
 
 output {
     elasticsearch {
-        hosts => [ "${ES_HOST}" ],
+        hosts => [ "${ES_HOST}" ]
         index => "dso_sq_%{+YYYY.MM.dd}"
     }
     stdout { codec => rubydebug }
