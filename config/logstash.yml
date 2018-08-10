@@ -1,10 +1,10 @@
 input {
     file {
-        path => "${SOURCE_LOGS_PATH}/*.log"
+        path => "/data-logs/*.log"
         start_position => "beginning"
         sincedb_path => "/dev/null"
         tags => ["${SOURCE_TAG}"]
-        type => "${SOURCE_LOGS_TYPE}"
+        type => "${SOURCE_TYPE}"
     }
 }
 
@@ -20,7 +20,7 @@ filter{
 output {
     elasticsearch {
         hosts => [ "http://elasticsearch:9200" ]
-        index => "dso_sq_%{+YYYY.MM.dd}"
+        index => "${SOURCE_INDEX}_%{+YYYY.MM.dd}"
     }
     stdout { codec => rubydebug }
 }
