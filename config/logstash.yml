@@ -1,11 +1,10 @@
 input {
     file {
-	codec => json
-        path => "/sonar-logs/*.log"
+        path => "${SOURCE_LOGS_PATH}/*.log"
         start_position => "beginning"
         sincedb_path => "/dev/null"
-        tags => ["SQ", "SonarQube"]
-        type => "SonarQube"
+        tags => ["${SOURCE_TAG}"]
+        type => "${SOURCE_LOGS_TYPE}"
     }
 }
 
